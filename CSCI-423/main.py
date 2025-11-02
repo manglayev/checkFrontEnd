@@ -37,9 +37,9 @@ def get_student_id(file_path, first_name, last_name):
 
 if __name__ == "__main__":
 
-    path_to_directory = "/home/talgat/Desktop/423/Lab_2.2"
+    path_to_directory = "/home/talgat/Desktop/423"
     participants_file = "/home/talgat/Desktop/423/participants.csv"
-    file_result = "/home/talgat/Desktop/423/results_lab_2.2.csv"
+    file_result = "/home/talgat/Desktop/423/results.csv"
     # === CSV HEADER ===
     with open(file_result, mode='w') as csv_file:
         fieldnames=["first_name", "last_name", "student_id", "link", "grade"]
@@ -47,23 +47,25 @@ if __name__ == "__main__":
         writer.writeheader()
 
     for directory in os.scandir(path_to_directory):
-        #print("INSIDE: " + directory.path)
-        first, last = get_first_and_last_names(directory.path)
-        student_id = str(get_student_id(participants_file, first, last))
-        #print("FIRST: " + first +"; LAST: " + last + "; Student_id: " + student_id)
-        for entry in os.scandir(directory.path):
-            #print("ENTRY: " + entry.path)
-            if entry.is_file():
-                try:
-                    with open(entry, "r") as src:
-                        content = src.read().strip()+"#"
-                        print("CONTENT: " + content)
-                        grade = 2
-                        if len(content) < 10:
-                            content = "No link provided"
-                            grade = 0
-                except Exception as e:
-                    print(f"Error processing file {entry}: {e}")
+        if not directory.is_file():
+            #print("INSIDE: " + directory.path)
+            first, last = get_first_and_last_names(directory.path)
+            student_id = str(get_student_id(participants_file, first, last))
+            #print("FIRST: " + first +"; LAST: " + last + "; Student_id: " + student_id)
+
+            for entry in os.scandir(directory.path):
+                #print("ENTRY: " + entry.path)
+                if entry.is_file():
+                    try:
+                        with open(entry, "r") as src:
+                            content = src.read().strip()+"#"
+                            print("CONTENT: " + content)
+                            grade = 4
+                            if len(content) < 10:
+                                content = "No link provided"
+                                grade = 0
+                    except Exception as e:
+                        print(f"Error processing file {entry}: {e}")
 
         # === Save results ===
         with open(file_result, mode='a') as csv_file:
