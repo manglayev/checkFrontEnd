@@ -7,11 +7,17 @@ This program requires:
 import os
 from zipfile import ZipFile
 
+# === PATHS (adjust as needed) ===
+path = "week-2/CSCI111"
+file_result = "/home/talgat/Desktop/111/homeworks/hw-1-results.csv"
+file_participants = "/home/talgat/Desktop/111/homeworks/participants.csv"
+
+
 #PART 1 Loop through the directory and if there is a file with zip extension unarchive it in the same directory
 #MacOS path
 #path = "/Users/talgatmanglayev/Desktop/CSCI-111
 #Ubuntu path
-path = "/home/talgat/Desktop/112/HW-1"
+path = "/home/talgat/Desktop/111/homeworks/hw-1"
 directoryObject = os.scandir(path)
 file_path = ""
 feedback_file = ""
@@ -19,7 +25,7 @@ feedback_file = ""
 student_info = {}
 grade_1 = 5
 import csv
-file_result = "/home/talgat/Desktop/112/111-results.csv"
+
 with open(file_result, mode='w') as csv_file:
     fieldnames = ["first_name", "last_name", "id", "grade-1", "grade-2", "grade", "feedback"]
     writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
@@ -44,7 +50,7 @@ for entry in directoryObject:
     grade 1, grade 2 as 0 and Feedback into a new CSV file
     """
     import csv
-    file_participants = "/home/talgat/Desktop/112/111-participants.csv"
+
     with open(file_participants, newline='') as csvfile:
       path_participants = csv.reader(csvfile, delimiter=' ', quotechar='|')
       for row in path_participants:
@@ -137,14 +143,15 @@ for entry in directoryObject:
                   all_html_and_css.close()
 
     #print(file_path.upper())
-    items_needed = ('<h1', '<h2', '<h3', '<h4', '<h5', '<h6', '<a','_blank',
-                  '<img', 'alt=','<!--', '<b', '<strong', '<i', '&lt',
-                  '&gt', '&amp', '&nbsp', '&copy', '&quot', '<ul',
-                  '<ol', '<li', '<br', '<hr', '<div', '<p', '<span', '<video', 
-                  '<title','<iframe', '<table',
-                  'font-family', 'font-size', 'color', 'margin',
-                  'padding', 'background-color', 'border', 'width',
-                  'height', 'class=', '#', 'style=', '<style>', '.css', '[', 'icon')
+    items_needed = ('<h1', '<h2', '<a','_blank', '<img', '<!--', '<b', 
+                  '<strong', '<i', '&lt', '&gt', '&amp', '&nbsp', 
+                  '&copy', '&quot', '<ul', '<ol', '<li', '<br', '<hr',
+                  '<div', '<p', '<span', '<code', '<title', 'icon',
+                  '<iframe', '<video', '<table', 'em', '<progress',
+                  'style=', '<style>', '.css', 'font-family', 'font-size', 'color', 
+                  'text-decoration', 'list-style-type', 'border', 'background-color', 
+                  'class=', '#', '[', '/*', 'width = '
+                  )
     items_lack = ""
     #contentFile = os.path.dirname(zip_file)+"/all_html_and_css.txt"    
     line_counter = 0
@@ -203,7 +210,7 @@ for entry in directoryObject:
     feedback_text = feedback_text + "\nGrade 2: "
     grade_1 = 4.8 - number_of_items_lack * 0.1
 
-    file_result = "/home/talgat/Desktop/112/111-results.csv"
+    file_result = "/home/talgat/Desktop/111/homeworks/111-results.csv"
     with open(file_result, mode='a') as csv_file:
       fieldnames = ["first_name", "last_name", "id", "grade-1", "grade-2", "grade", "feedback"]
       writer = csv.DictWriter(csv_file, fieldnames=fieldnames)
